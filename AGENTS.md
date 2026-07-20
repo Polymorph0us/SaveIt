@@ -95,17 +95,29 @@ npm install
 # Type checking - zero errors expected
 type npx tsc --noEmit
 
-# Expo doctor (2/21 checks pass in CI, 21/21 with network access)
-npx expo-doctor
-
-# Actual runtime bundle verification (closest to "does it run" in CI)
-npx expo export --platform android
-```
-
 ### Key Behaviors
 - Never throws when `.env` is missing - shows friendly screen
 - Uses `gen_random_uuid()` built-in to Postgres (no uuid-ossp extension)
 - Auto-manages Supabase auth state with React hooks
+
+## Autonomous Execution Protocol
+
+1. Run npx expo export --platform android > /tmp/build_check.log 2>&1
+   If it fails, read the log fully, fix the root cause, re-run until it passes.
+   Never proceed to a new task on a broken build.
+2. Read README.md's "Roadmap" section. Pick the first unchecked item.
+3. Implement it.
+4. Run all three, in order — every single one must pass before continuing:
+   npx tsc --noEmit
+   npx expo-doctor
+   npx expo export --platform android
+   If any fail: fix and restart this step from the top. Do not commit on failure.
+5. git add -A && git commit -m "feat: <description>"
+6. Edit README.md: check off the completed roadmap item, add one line under
+   "Completed" describing what changed.
+7. If the same task fails verification 3 times in a row, stop and leave a
+   note in README.md under "Blocked" instead of continuing to burn requests.
+8. Repeat from step 2. Stop when no unchecked roadmap items remain.
 
 ## Project Quirks
 
