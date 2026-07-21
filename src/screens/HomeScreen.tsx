@@ -139,6 +139,13 @@ export default function HomeScreen({ navigation }: any) {
       ? styles.badgeWarn
       : styles.badgeBad;
 
+  const progressFillColor =
+    summary.probabilityLevel === "on_track"
+      ? "#22C55E"
+      : summary.probabilityLevel === "at_risk"
+      ? "#F59E0B"
+      : "#EF4444";
+
   return (
     <FlatList
       style={styles.container}
@@ -161,12 +168,12 @@ export default function HomeScreen({ navigation }: any) {
             </Text>
           </View>
 
-          <View style={styles.progressTrack}>
-            <View style={[styles.progressFill, { width: `${progress * 100}%` }]} />
-          </View>
-          <Text style={styles.cardSub}>
-            ₹{summary.currentSavings.toFixed(0)} of ₹{summary.goal.target_amount} saved
-          </Text>
+    <View style={styles.progressTrack}>
+              <View style={[styles.progressFill, { backgroundColor: progressFillColor }]} />
+            </View>
+            <Text style={styles.cardSub}>
+              ₹{summary.currentSavings.toFixed(0)} of ₹{summary.goal.target_amount} saved
+            </Text>
 
           <Pressable
             style={styles.button}

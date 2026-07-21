@@ -1,6 +1,5 @@
 {
   "$schema": "https://opencode.ai/config.json",
-
   "provider": {
     "openrouter": {
       "models": {
@@ -9,29 +8,28 @@
         "poolside/laguna-m.1:free": {},
         "openrouter/free": {}
       }
+    },
+    "groq": {
+      "models": {
+        "llama-3.1-8b-instant": {}
+      }
     }
   },
-
   "model": "openrouter/cohere/north-mini-code:free",
-
   "small_model": "openrouter/openrouter/free",
-
   "agent": {
     "plan": {
       "model": "openrouter/poolside/laguna-m.1:free"
     },
-
     "build": {
       "model": "openrouter/cohere/north-mini-code:free"
     },
-
     "review": {
       "model": "openrouter/openai/gpt-oss-120b:free",
       "mode": "subagent"
     },
-
     "title": {
-      "model": "openrouter/openrouter/free"
+      "model": "groq/llama-3.1-8b-instant"
     }
   }
 }
